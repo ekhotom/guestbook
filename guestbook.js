@@ -15,7 +15,7 @@ app.get("/", function(req, res) {
   res.render("pages/index");
 });
 
-// serving json file
+// serving json file (s)
 var data = require("./demojson.json");
 var flag = require("./flagdata.json");
 
@@ -62,28 +62,32 @@ app.post("/newmessage", function(req, res) {
   res.render("pages/guestbook", { users: data, flags: flag });
 });
 
+// serving json - not sure if i could use the global variables above
 var del = require("./demojson.json");
-// delete route :^)
+
+// /delete route :^)
 app.get("/delete", function(req, res) {
   res.render("pages/delete", { users: del });
 });
 
+// when id is selected from the /delete route
 app.post("/delete", function(req, res) {
+  // const and let are better than var apparently ### removeUser = posted <select> dropdown's value
   const removeUser = req.body.sel;
-  // console.log(removeUser);
-  //var json = JSON.stringify(del);
-  //console.log(json);
-  //fs.writeFileSync("./demojson.json", JSON.stringify(json, null, 4));
+
   for (var t = 0; t < del.length; t++) {
     if (removeUser == del[t].id) {
       // console.log(removeUser + "__" + del[t].id) // seems to give the correct output - we're on the right track
       // splice removes the correct user from the variable but not from the json - need writefilesync?
+      // using a simple delete was giving the JSON file a null which caused problems because it couldn't be read by the code
       del.splice([t], 1);
+      // our del variable is now in the memory without the deleted user so we "re-write" the file (?)
       fs.writeFileSync("./demojson.json", JSON.stringify(del, null, 4));
+      // logging a msg in console
       console.log("Comment with the id [" + removeUser + "] was deleted");
     }
   }
-
+  // re-render the messages to see changes in json/db
   res.render("pages/delete", { users: del });
 });
 
