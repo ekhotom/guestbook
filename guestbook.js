@@ -66,15 +66,23 @@ var del = require("./demojson.json");
 // delete route :^)
 app.get("/delete", function(req, res) {
   res.render("pages/delete", { users: del });
-
 });
 
 app.post("/delete", function(req, res) {
-  var removeUser = req.body.sel;
+  const removeUser = req.body.sel;
   // console.log(removeUser);
   //var json = JSON.stringify(del);
   //console.log(json);
-  //fs.writeFileSync("demojson.json", JSON.stringify(json, null, 4));
+  //fs.writeFileSync("./demojson.json", JSON.stringify(json, null, 4));
+  for (var t = 0; t < del.length; t++) {
+    if (removeUser == del[t].id) {
+      // console.log(removeUser + "__" + del[t].id) // seems to give the correct output - we're on the right track
+      // splice removes the correct user from the variable but not from the json - need writefilesync?
+      del.splice([t], 1);
+      fs.writeFileSync("./demojson.json", JSON.stringify(del, null, 4));
+      console.log("Comment with the id [" + removeUser + "] was deleted");
+    }
+  }
 
   res.render("pages/delete", { users: del });
 });
