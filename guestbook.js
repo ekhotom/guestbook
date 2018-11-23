@@ -72,7 +72,7 @@ app.get("/delete", function(req, res) {
 app.post("/delete", function(req, res) {
   var removeUser = req.body.sel;
   // console.log(removeUser);
-  var json = JSON.stringify(del);
+  //var json = JSON.stringify(del);
   //console.log(json);
   //fs.writeFileSync("demojson.json", JSON.stringify(json, null, 4));
 
