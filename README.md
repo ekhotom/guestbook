@@ -6,7 +6,7 @@ Routes "/", "/guestbook" and "/delete" (and "/newmessage")
 
 Head, footer and navi partials included on the pages
 
-User may see guestbook posts made by other users and has a chance to leave a message themselves.
+User may see guestbook posts made by other users and has a chance to leave a message themselves. If left completely empty, prompts error message but even filling one will send an incomplete push(). Ideally the "country" choice would suggest countries based on characters in the input so far.
 
 Guestbook messages are located and read from a local .json file.
 
