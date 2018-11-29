@@ -51,7 +51,7 @@ app.post("/newmessage", function(req, res) {
   });
 
   // turning the array into json format and making it into a new variable jsonStr
-  var jsonStr = JSON.stringify(formuli);
+  var jsonStr = JSON.stringify(formuli, null, 4);
 
   // writing the json formatted data into our json with error handling
   fs.writeFile("demojson.json", jsonStr, (err) => {
